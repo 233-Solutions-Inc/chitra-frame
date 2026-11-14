@@ -27,7 +27,7 @@ follow.
 
    ```
    wget -O /boot/config/plugins/dockerMan/templates-user/my-chitra-frame.xml \
-     https://raw.githubusercontent.com/233-Solutions-Inc/chitra-frame/main/chitra-frame.xml
+     https://raw.githubusercontent.com/233-Solutions-Inc/chitra-frame/main/templates/chitra-frame.xml
    ```
 
 2. On the Docker tab choose **Add Container**, then pick **chitra-frame** from the
@@ -39,7 +39,7 @@ follow.
 
 The setup page walks through it in order. Unlock it with the password you set, then:
 
-1. **Sign in.** The page shows a code. Open [chitra.art/tv](https://chitra.art/tv) on a
+1. **Sign in.** The page shows a code. Open [chitra.art/account/devices](https://chitra.art/account/devices) on a
    phone or computer where you are signed in, and enter it. No password is typed into the
    setup page or stored on your server.
 2. **Find your TV.** Turn the TV on and press **Search for my TV**. The first time, the
@@ -48,7 +48,7 @@ The setup page walks through it in order. Unlock it with the password you set, t
    The test card checks that pictures land the right way up.
 
 A picture goes up as soon as the TV is connected. What plays, how often it changes and the
-caption are chosen on chitra.art/tv, under Your Frames.
+caption are chosen on chitra.art/frame, under Your Frames.
 
 ## Keep the setup page private
 
@@ -117,4 +117,25 @@ The container's log says what the app is doing in plain sentences; a line that s
 - **The sign-in code ran out.** Codes last ten minutes. Press **Get a sign-in code** for a
   new one.
 
-For anything else, write to contact@chitra.art.
+### Tell us how it went
+
+This is a beta, and it has been tried on one TV in one home, so a report from yours is
+worth a great deal, whether it worked or not.
+[Open an issue](https://github.com/233-Solutions-Inc/chitra-frame/issues/new) or write to
+contact@chitra.art, and say:
+
+- the TV's model and year (the setup page shows the model under **Your TV**)
+- which way it hangs, landscape or portrait
+- what you did, what you expected, and what happened instead
+- the lines around the problem from the container's log (Docker tab, the container's icon,
+  **Logs**); the lines that start with `!` matter most
+
+For more detail, switch on **Keep a diagnostics log** on the setup page, restart the
+container, and repeat what went wrong. The log is `chitra-frame.log` in the config folder.
+It never holds your sign-in, the TV's pairing or your pictures, so it is safe to attach.
+
+## Licence
+
+The files in this repository (the template, this page, the banner and the icon) are under
+the [MIT licence](LICENSE). The Chitra Frame app inside the container image is not open
+source, and its licence is separate.

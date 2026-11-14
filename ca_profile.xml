@@ -1,0 +1,10 @@
+<CommunityApplications>
+  <Profile>
+    Chitra Frame, from the makers of [chitra.art](https://chitra.art): a small app that shows art from your chitra.art account on a Samsung The Frame TV, from a server in your own home.
+
+    This repository holds its Unraid template. The app is in beta and has been tried on one TV so far, so reports are very welcome: open an issue on GitHub or write to contact@chitra.art.
+  </Profile>
+  <Icon>https://raw.githubusercontent.com/233-Solutions-Inc/chitra-frame/main/icon.png</Icon>
+  <WebPage>https://chitra.art</WebPage>
+  <Forum>https://github.com/233-Solutions-Inc/chitra-frame/issues</Forum>
+</CommunityApplications>

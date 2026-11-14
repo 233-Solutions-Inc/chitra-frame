@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+  The Unraid (Community Applications) template for Chitra Frame.
+
+  The image is pushed by: publish.ps1 -Image ghcr.io/233-solutions-inc/chitra-frame
+  This folder (frame/unraid) is the whole of https://github.com/233-Solutions-Inc/chitra-frame, laid
+  out as Community Applications' starter repository is: this file under templates/, and
+  ca_profile.xml, LICENSE, README.md, the banner and the icon in the root. Upload what changed.
+  The icon (icon.png) is kept only there.
+  frame/CLAUDE.md, "The Unraid build", lists what publishing it needs.
+-->
+<Container version="2">
+  <Name>chitra-frame</Name>
+  <Repository>ghcr.io/233-solutions-inc/chitra-frame:latest</Repository>
+  <Registry>https://github.com/orgs/233-Solutions-Inc/packages/container/package/chitra-frame</Registry>
+  <Network>host</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/233-Solutions-Inc/chitra-frame#if-something-is-not-working</Support>
+  <ReadMe>https://github.com/233-Solutions-Inc/chitra-frame#readme</ReadMe>
+  <Beta>true</Beta>
+  <Project>https://chitra.art</Project>
+  <Overview>Chitra Frame shows art from chitra.art (https://chitra.art) on a Samsung The Frame TV. It needs a Samsung The Frame on the same network as this server and a chitra.art account; other TVs and displays will follow. It runs on your own network, around the clock: it signs in with a code you confirm on chitra.art (no password is stored), finds and pairs with the TV, and changes the picture on the schedule you choose on chitra.art/frame. Your own photos can go round a work that leaves room; they are read from a folder you map and never leave this server.&#xD;
+&#xD;
+SETUP: set a Setup page password below, start the container, then open the WebUI. The page shows a sign-in code, finds your TV (choose Allow on the TV with its remote the first time) and asks which way it hangs.&#xD;
+&#xD;
+KEEP THE SETUP PAGE PRIVATE: it can change what your Frame shows and sign the app in or out. Nothing can be changed without the password, but the page is plain HTTP, so do not forward its port or publish it to the internet, and restrict access on your network as suits you. When setup is finished, turn the page off (the button at the bottom of the page, or set Setup page to off here): the app keeps playing and no port is open.&#xD;
+&#xD;
+Host networking is required: the TV is found by a network search and woken with Wake-on-LAN, neither of which crosses Docker's bridge.</Overview>
+  <Category>MediaApp:Photos HomeAutomation: Status:Beta</Category>
+  <WebUI>http://[IP]:[PORT:8099]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/233-Solutions-Inc/chitra-frame/main/templates/chitra-frame.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/233-Solutions-Inc/chitra-frame/main/icon.png</Icon>
+  <ExtraParams>--tmpfs /tmp:rw,exec,nosuid,size=512m</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <Requires>A Samsung The Frame TV on the same network as this server, and a chitra.art account (https://chitra.art).</Requires>
+  <Config Name="Config" Target="/config" Default="/mnt/user/appdata/chitra-frame" Mode="rw" Description="Everything the app keeps: its settings, the chitra.art sign-in, the TV's pairing, the copies of pictures sent to the TV (20 by default, a few megabytes each) and the optional log. Keep it on appdata so it survives updates." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/chitra-frame</Config>
+  <Config Name="My photos" Target="/photos" Default="" Mode="ro" Description="Optional. A share or folder of your own photos to show round a work that leaves room. Mapped read-only: the app never changes or uploads them. Leave empty if you do not want this." Type="Path" Display="always" Required="false" Mask="false"/>
+  <Config Name="Setup page password" Target="CHITRA_FRAME_WEB_PASSWORD" Default="" Mode="" Description="Required to change anything on the setup page, at least 8 characters. Without it the page only shows status. This protects the page from anyone else who can reach this server's address; it is not your chitra.art password." Type="Variable" Display="always" Required="false" Mask="true"/>
+  <Config Name="Setup page" Target="CHITRA_FRAME_WEB" Default="on|off" Mode="" Description="off opens no port at all: use it once setup is finished. The app keeps playing; what plays is chosen on chitra.art/frame." Type="Variable" Display="always" Required="false" Mask="false">on</Config>
+  <Config Name="Setup page port" Target="CHITRA_FRAME_WEB_PORT" Default="8099" Mode="" Description="The port the setup page listens on (host networking, so change it here if 8099 is taken)." Type="Variable" Display="advanced" Required="false" Mask="false">8099</Config>
+  <Config Name="TV address" Target="CHITRA_FRAME_TV_HOST" Default="" Mode="" Description="Optional. The TV's IP address, to skip the network search. Give the TV a fixed address on your router if you set this." Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="Time zone" Target="TZ" Default="" Mode="" Description="Optional, for the times in the log and on the setup page, for example America/Toronto." Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="PUID" Target="PUID" Default="99" Mode="" Description="The user the app runs as (Unraid's nobody)." Type="Variable" Display="advanced" Required="false" Mask="false">99</Config>
+  <Config Name="PGID" Target="PGID" Default="100" Mode="" Description="The group the app runs as (Unraid's users)." Type="Variable" Display="advanced" Required="false" Mask="false">100</Config>
+</Container>
